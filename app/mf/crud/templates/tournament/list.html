@@ -1,0 +1,124 @@
+{% extends 'list.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block head_list %}
+<script src="{% static 'tournament/js/list.js' %}"></script>
+{% endblock %}
+
+{% block grow1 %}
+{% endblock %}
+
+{% block columns %}
+<tr>
+    <th scope="col">Nombre del Torneo</th>
+    <th scope="col">Fecha</th>
+    <th scope="col">Categoría</th>
+    <th scope="col">Nro. Pérdidas</th>
+    <th scope="col">Estado</th>
+    <th scope="col" style="width: 15%;">Opciones</th>
+</tr>
+{% endblock %}
+
+{% block rows %}
+
+{% endblock %}
+
+{% block buttons_list %}
+<a class="btn btn-outline-info btnAdd">
+    <i class="fas fa-plus"></i> <i class="fas fa-user"></i> Nuevo Torneo</a>
+
+{% endblock %}
+
+{% block javascript %}
+<!-- Modal -->
+<div class="modal fade" id="modalTournament" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form method="post" action="." enctype="multipart/form-data" class="formTournament">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <b><i id="i_modal_title" class="fas fa-plus"></i><i
+                                class="fas text-primary fa-user-users"></i> <span></span></b>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <input name="action" type="hidden" value="add">
+                        <input name="id" id="id" type="hidden" value="0">
+                        {% for field in form.visible_fields %}
+                        <div class="form-group">
+                            <label>{{ field.label }}:</label>
+                            {{ field|add_class:'form-control' |attr:'autocompletar:off' }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btn_submit" class="btn btn-outline-info medium btn-block"><i
+                            class="fas fa-save"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalTeams" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form method="post" action="." enctype="multipart/form-data" class="formTeams">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <b><i id="i_modal_title" class="fas fa-plus"></i><i
+                                class="fas text-primary fa-user-users"></i> <span></span></b>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <input name="action" type="hidden" value="addTeams">
+                        <input name="tournamentId" type="hidden" value="0">
+                        <div style="overflow-x:auto;">
+                            <table class="table table-bordered tableTeams" id="dataTeams">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Equipo</th>
+                                    <th scope="col">Seleccionar</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btn_submit" class="btn btn-outline-info medium btn-block"><i
+                            class="fas fa-save"></i> Guardar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal sx" id="modalDetails" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info justify-content-center">
+                <h5 class="modal-title"><i class="fas text-white fa-users"></i> LISTADO DE PARTICIPANTES </h5>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid text-center" id="detailsTeams"></div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
